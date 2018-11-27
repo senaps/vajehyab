@@ -10,9 +10,11 @@ class Vajehyab:
 
     """
     def __init__(self, token=None):
+        if not token:
+            raise ValueError("new instance needs a token to work with")
         self.token = token
 
-    def search_word(self, word=None, search_type=None, page=None, per_page=None,
+    def search_word(self, word=None, search_type='exact', page=None, per_page=None,
                     dbs=None):
         """search a word
 
@@ -37,8 +39,12 @@ class Vajehyab:
         :param dbs: db names to search from
         :return: a list of words that match searched word in the db.
         """
-        if type not in TYPES:
-            message = f"{search_type} is not supported"
+        if not word:
+            message = f"message should be provided"
+            logger.error(message)
+            raise ValueError(message)
+        if search_type.lower() not in TYPES:
+            message = f"`{search_type}` is not supported"
             logger.error(message)
             raise ValueError(message)
         if per_page > PER_PAGE_MAX:

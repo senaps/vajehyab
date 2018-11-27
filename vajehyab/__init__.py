@@ -1,9 +1,7 @@
 import sys
-from logging import logging, NullHandler
+import logging
 
 
-logger = logging.getLogger(__name__)
-handler = logger.addHandler(NullHandler)
-logger.addHandler(handler)
+logger = logging.getLogger(__name__).addHandler(logging.NullHandler())
 
-from .core import *
+from .core import Vajehyab
